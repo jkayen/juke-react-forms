@@ -68,7 +68,7 @@
 	
 	var _Album2 = _interopRequireDefault(_Album);
 	
-	var _Artist = __webpack_require__(267);
+	var _Artist = __webpack_require__(268);
 	
 	var _Artist2 = _interopRequireDefault(_Artist);
 	
@@ -76,7 +76,7 @@
 	
 	var _Songs2 = _interopRequireDefault(_Songs);
 	
-	var _FilterableArtistsContainer = __webpack_require__(268);
+	var _FilterableArtistsContainer = __webpack_require__(269);
 	
 	var _FilterableArtistsContainer2 = _interopRequireDefault(_FilterableArtistsContainer);
 	
@@ -28765,6 +28765,56 @@
 	  value: true
 	});
 	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRouter = __webpack_require__(178);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var Artists = function Artists(props) {
+	
+	  var artists = props.artists;
+	
+	  return _react2.default.createElement(
+	    'div',
+	    null,
+	    _react2.default.createElement(
+	      'h3',
+	      null,
+	      'Artists'
+	    ),
+	    _react2.default.createElement(
+	      'div',
+	      { className: 'list-group' },
+	      artists.map(function (artist) {
+	        return _react2.default.createElement(
+	          'div',
+	          { className: 'list-group-item', key: artist.id },
+	          _react2.default.createElement(
+	            _reactRouter.Link,
+	            { to: '/artists/' + artist.id },
+	            artist.name
+	          )
+	        );
+	      })
+	    )
+	  );
+	};
+	
+	exports.default = Artists;
+
+/***/ },
+/* 268 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
 	var _react = __webpack_require__(1);
@@ -28851,7 +28901,7 @@
 	exports.default = Artist;
 
 /***/ },
-/* 268 */
+/* 269 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -28866,7 +28916,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _Artists = __webpack_require__(269);
+	var _Artists = __webpack_require__(267);
 	
 	var _Artists2 = _interopRequireDefault(_Artists);
 	
@@ -28928,56 +28978,6 @@
 	}(_react2.default.Component);
 	
 	exports.default = FilterableArtistsContainer;
-
-/***/ },
-/* 269 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _react = __webpack_require__(1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _reactRouter = __webpack_require__(178);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var Artists = function Artists(props) {
-	
-	  var artists = props.artists;
-	
-	  return _react2.default.createElement(
-	    'div',
-	    null,
-	    _react2.default.createElement(
-	      'h3',
-	      null,
-	      'Artists'
-	    ),
-	    _react2.default.createElement(
-	      'div',
-	      { className: 'list-group' },
-	      artists.map(function (artist) {
-	        return _react2.default.createElement(
-	          'div',
-	          { className: 'list-group-item', key: artist.id },
-	          _react2.default.createElement(
-	            _reactRouter.Link,
-	            { to: '/artists/' + artist.id },
-	            artist.name
-	          )
-	        );
-	      })
-	    )
-	  );
-	};
-	
-	exports.default = Artists;
 
 /***/ },
 /* 270 */
@@ -29049,7 +29049,10 @@
 	
 	    var _this = _possibleConstructorReturn(this, (NewPlaylistContainer.__proto__ || Object.getPrototypeOf(NewPlaylistContainer)).call(this));
 	
-	    _this.state = { inputValue: '' };
+	    _this.state = {
+	      inputValue: '',
+	      hasTyped: false
+	    };
 	    _this.handleChange = _this.handleChange.bind(_this);
 	    _this.handleSubmit = _this.handleSubmit.bind(_this);
 	    return _this;
@@ -29060,9 +29063,9 @@
 	    value: function handleChange(event) {
 	      event.preventDefault();
 	      var value = event.target.value;
-	      if (value.length > 16) value = value.slice(0, 16);
 	      this.setState({
-	        inputValue: value
+	        inputValue: value,
+	        hasTyped: true
 	      });
 	    }
 	  }, {
@@ -29077,7 +29080,17 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      return _react2.default.createElement(_NewPlaylist2.default, { inputValue: this.state.inputValue, onSubmit: this.handleSubmit, handleChange: this.handleChange });
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(_NewPlaylist2.default, {
+	          inputValue: this.state.inputValue,
+	          onSubmit: this.handleSubmit,
+	          handleChange: this.handleChange,
+	          disabled: !(this.state.inputValue.length < 17) || !(this.state.inputValue.length > 0),
+	          hasTyped: this.state.hasTyped
+	        })
+	      );
 	    }
 	  }]);
 	
@@ -29103,9 +29116,15 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var NewPlaylist = function NewPlaylist(props) {
+	  console.log(props);
 	  return _react2.default.createElement(
 	    "div",
 	    { className: "well" },
+	    props.hasTyped && (props.inputValue.length === 0 || props.inputValue.length > 16) ? _react2.default.createElement(
+	      "div",
+	      { className: "alert alert-warning" },
+	      "Please enter a name between 1 and 16 characters."
+	    ) : null,
 	    _react2.default.createElement(
 	      "form",
 	      { className: "form-horizontal", onSubmit: props.onSubmit },
@@ -29128,7 +29147,7 @@
 	          _react2.default.createElement(
 	            "div",
 	            { className: "col-xs-10" },
-	            _react2.default.createElement("input", { value: props.inputValue, required: true, className: "form-control", onChange: props.handleChange, type: "text" })
+	            _react2.default.createElement("input", { value: props.inputValue, className: "form-control", onChange: props.handleChange, type: "text" })
 	          )
 	        ),
 	        _react2.default.createElement(
@@ -29139,7 +29158,8 @@
 	            { className: "col-xs-10 col-xs-offset-2" },
 	            _react2.default.createElement(
 	              "button",
-	              { type: "submit", className: "btn btn-success" },
+	              { type: "submit", className: "btn btn-success",
+	                disabled: props.disabled },
 	              "Create Playlist"
 	            )
 	          )

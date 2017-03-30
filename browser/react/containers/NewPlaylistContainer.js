@@ -5,17 +5,20 @@ import NewPlaylist from '../components/NewPlaylist'
 export default class NewPlaylistContainer extends React.Component{
   constructor(){
     super()
-    this.state = { inputValue: ''}
+    this.state = {
+      inputValue: '',
+      hasTyped: false
+    }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
-  handleChange (event) {
+  handleChange(event) {
     event.preventDefault()
     let value = event.target.value;
-    if(value.length > 16) value = value.slice(0,16)
     this.setState({
-      inputValue: value
+      inputValue: value,
+      hasTyped: true
     });
   }
 
@@ -28,12 +31,17 @@ export default class NewPlaylistContainer extends React.Component{
   }
 
 
-
-
-
   render(){
-    return(
-      <NewPlaylist inputValue={this.state.inputValue} onSubmit={this.handleSubmit} handleChange={this.handleChange} />
+    return (
+      <div>
+        <NewPlaylist
+          inputValue={this.state.inputValue}
+          onSubmit={this.handleSubmit}
+          handleChange={this.handleChange}
+          disabled={!(this.state.inputValue.length < 17) || !(this.state.inputValue.length > 0)}
+          hasTyped={this.state.hasTyped}
+        />
+      </div>
     )
 
   }
