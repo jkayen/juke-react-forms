@@ -68,7 +68,7 @@
 	
 	var _Album2 = _interopRequireDefault(_Album);
 	
-	var _Artist = __webpack_require__(268);
+	var _Artist = __webpack_require__(267);
 	
 	var _Artist2 = _interopRequireDefault(_Artist);
 	
@@ -76,7 +76,7 @@
 	
 	var _Songs2 = _interopRequireDefault(_Songs);
 	
-	var _FilterableArtistsContainer = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"./containers/FilterableArtistsContainer\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+	var _FilterableArtistsContainer = __webpack_require__(268);
 	
 	var _FilterableArtistsContainer2 = _interopRequireDefault(_FilterableArtistsContainer);
 	
@@ -28731,8 +28731,7 @@
 	};
 
 /***/ },
-/* 267 */,
-/* 268 */
+/* 267 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -28825,6 +28824,165 @@
 	}(_react2.default.Component);
 	
 	exports.default = Artist;
+
+/***/ },
+/* 268 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _Artists = __webpack_require__(269);
+	
+	var _Artists2 = _interopRequireDefault(_Artists);
+	
+	var _FilterInput = __webpack_require__(270);
+	
+	var _FilterInput2 = _interopRequireDefault(_FilterInput);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var FilterableArtistsContainer = function (_React$Component) {
+	  _inherits(FilterableArtistsContainer, _React$Component);
+	
+	  function FilterableArtistsContainer(props) {
+	    _classCallCheck(this, FilterableArtistsContainer);
+	
+	    var _this = _possibleConstructorReturn(this, (FilterableArtistsContainer.__proto__ || Object.getPrototypeOf(FilterableArtistsContainer)).call(this, props));
+	
+	    _this.state = {
+	      inputValue: ''
+	    };
+	    _this.handleChange = _this.handleChange.bind(_this);
+	    return _this;
+	  }
+	
+	  _createClass(FilterableArtistsContainer, [{
+	    key: 'handleChange',
+	    value: function handleChange(event) {
+	      var value = event.target.value;
+	      this.setState({
+	        inputValue: value
+	      });
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var inputValue = this.state.inputValue;
+	      {/* Using the inputValue received from FilterInput, we check for a match
+	        within Artist.js.name and pass a matched artist name as a prop to Artists as
+	        and array which allows the artist.map function in Artists.js to not shit itself */}
+	      var filteredArtist = this.props.artists.filter(function (artist) {
+	        return artist.name.match(inputValue);
+	      });
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(_FilterInput2.default, { handleChange: this.handleChange }),
+	        _react2.default.createElement(_Artists2.default, { artists: filteredArtist })
+	      );
+	    }
+	  }]);
+	
+	  return FilterableArtistsContainer;
+	}(_react2.default.Component);
+	
+	exports.default = FilterableArtistsContainer;
+
+/***/ },
+/* 269 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRouter = __webpack_require__(178);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var Artists = function Artists(props) {
+	
+	  var artists = props.artists;
+	
+	  return _react2.default.createElement(
+	    'div',
+	    null,
+	    _react2.default.createElement(
+	      'h3',
+	      null,
+	      'Artists'
+	    ),
+	    _react2.default.createElement(
+	      'div',
+	      { className: 'list-group' },
+	      artists.map(function (artist) {
+	        return _react2.default.createElement(
+	          'div',
+	          { className: 'list-group-item', key: artist.id },
+	          _react2.default.createElement(
+	            _reactRouter.Link,
+	            { to: '/artists/' + artist.id },
+	            artist.name
+	          )
+	        );
+	      })
+	    )
+	  );
+	};
+	
+	exports.default = Artists;
+
+/***/ },
+/* 270 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var FilterInput = function FilterInput(props) {
+	  return _react2.default.createElement(
+	    'form',
+	    { className: 'form-group', style: { marginTop: '20px' } },
+	    _react2.default.createElement('input', {
+	      className: 'form-control',
+	      placeholder: 'Enter artist name',
+	      onChange: props.handleChange
+	    })
+	  );
+	};
+	
+	exports.default = FilterInput;
 
 /***/ }
 /******/ ]);

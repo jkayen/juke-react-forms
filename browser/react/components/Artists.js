@@ -3,7 +3,7 @@ import { Link } from 'react-router';
 
 const Artists = (props) => {
 
-  const artists = props.artists;
+  let artists = props.artists;
 
   return (
     <div>
@@ -11,12 +11,12 @@ const Artists = (props) => {
       <div className="list-group">
         {
           artists.map(artist => {
-            return (
-              <div className="list-group-item" key={artist.id}>
-                <Link to={`/artists/${artist.id}`}>{ artist.name }</Link>
-              </div>
-            );
-          })
+              return (
+                <div className="list-group-item" key={artist.id}>
+                  <Link to={`/artists/${artist.id}`}>{ artist.name }</Link>
+                </div>
+              );
+            })
         }
       </div>
     </div>
